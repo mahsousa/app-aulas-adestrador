@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Video, { VideoRef } from "react-native-video";
 import { useVideoPlayer, VideoView } from 'expo-video';
+import * as VideoThumbnails from 'expo-video-thumbnails';
 
 export interface VideoCardProps {
   title: string;
@@ -16,37 +17,47 @@ const VideoCard: React.FC<VideoCardProps> = ({
   videoUrl,
   thumbnailUrl,
 }) => {
-  const videoRef = React.useRef<VideoRef | null>(null);
+  // const player = useVideoPlayer(videoUrl, player => {
+  //   player.loop = true;
+  //   //player.play();
+  // });
 
-  const handleVideoError = (error: any) => {
-    console.error("Erro no vídeo: ", error);
+  const [image, setImage] = useState<string | null>(null);
+  
+  useEffect(() => {
+    // Assim que abrir a tela, iniciar a geração do thumbnail
+    generateThumbnail();
+  }, []);
+
+  const generateThumbnail = async () => {
+    try {
+      const { uri } = await VideoThumbnails.getThumbnailAsync(
+        videoUrl,
+        {
+          time: 15000,
+        }
+      );
+      setImage(uri);
+    } catch (e) {
+      console.warn(e);
+    }
   };
-
-  const player = useVideoPlayer(videoUrl, player => {
-    player.loop = true;
-    //player.play();
-  });
 
   return (
     <View className="bg-white rounded-lg shadow-md overflow-hidden mb-4">
       <View className="w-full h-48 bg-black">
-        {/* <Video
-          ref={videoRef}
-          source={{ uri: videoUrl }}
-          className="w-full h-full"
-          controls={true}
-          paused={true}
-          poster={thumbnailUrl}
-          resizeMode="cover"
-          onError={handleVideoError}
-        /> */}
-        <VideoView 
-          style={styles.video} 
-          player={player}
-          allowsFullscreen={false}
-          allowsPictureInPicture 
-          
-        />
+      { !image && 
+        <Text className="text-white text-center text-2xl">Carregando...</Text>
+      }
+        { image && 
+          <Image source={{ uri: image }} style={styles.image} />
+        }
+          {/* <VideoView 
+            style={styles.video} 
+            player={player}
+            allowsFullscreen={false}
+            allowsPictureInPicture 
+          /> */}
       </View>
 
       <View className="p-4">
@@ -67,19 +78,15 @@ const VideoCard: React.FC<VideoCardProps> = ({
 };
 
 const styles = StyleSheet.create({
-  contentContainer: {
+  container: {
     flex: 1,
-    padding: 10,
-    alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 50,
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
   },
-  video: {
-    width: 350,
-    height: 275,
-  },
-  controlsContainer: {
-    padding: 10,
+  image: {
+    width: 200,
+    height: 200,
   },
 });
 
