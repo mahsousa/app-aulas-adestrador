@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, Image } from "react-native";
 import Card from "@/components/Card";
 import SearchBar from "@/components/Search";
 
@@ -38,7 +38,13 @@ const HomePage = () => {
   };
 
   return (
-    <ScrollView className="flex-1 pt-10 px-3">
+    <ScrollView className="flex-1 pt-10 px-3 bg-white">
+      <View className="items-center mb-4">
+        <Image
+          source={require("../assets/images/logo.png")}
+          style={{ width: 50, height: 50 }}
+        />
+      </View>
       <SearchBar placeholder="Buscar cards..." onSearch={handleSearch} />
       <View className="flex-wrap flex-row justify-between mt-4">
         {filteredCards.map((card) => (

@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Router = () => {
   return (
-      <Stack.Navigator initialRouteName="Splash">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Splash" component={SplashPage} options={{ headerShown: false }} />
         
         <Stack.Screen 
