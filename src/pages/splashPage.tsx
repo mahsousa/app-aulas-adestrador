@@ -11,13 +11,15 @@ type RootStackParamList = {
 
 type Props = NativeStackScreenProps<RootStackParamList, "Splash">;
 
-export default function SplashPage({}: Props) {
+export const SplashPage: React.FC = () => {
 
   const navigation = useNavigation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate('inicialPage' as never);
+      // @ts-ignore
+      //navigation.navigate('Home', { screen: 'stack' });
+      navigation.navigate('Lesson');
     }, 5000);
 
     return () => clearTimeout(timer);

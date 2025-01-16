@@ -3,13 +3,6 @@ import { ScrollView } from "react-native";
 import VideoCard, { VideoCardProps } from "src/components/VideoCard";
 
 
-// interface VideoData {
-//   title: string;
-//   description: string;
-//   videoUrl: string;
-//   thumbnailUrl: string;
-// }
-
 const LeassonPage: React.FC = () => {
   const videos: VideoCardProps[] = [
     {

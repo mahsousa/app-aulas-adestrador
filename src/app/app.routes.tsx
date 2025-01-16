@@ -1,19 +1,3 @@
-// import React from "react";
-// import { Stack } from "expo-router";
-// import "../styles/global.css";
-
-// export default function RootLayout() {
-//   return (
-//     <Stack initialRouteName="splashPage">
-//       <Stack.Screen name="splashPage" options={{ headerShown: false }} />
-//       <Stack.Screen name="inicialPage" options={{ headerShown: false }} />
-//       <Stack.Screen name="loginPage" />
-//       <Stack.Screen name="registerPage" />
-//       <Stack.Screen name="homePage" options={{ headerShown: false }} />
-//       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-//     </Stack>
-//   );
-// }
 import React from "react";
 import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -26,11 +10,15 @@ import {
 import { TouchableOpacity } from "react-native";
 import HomePage from "src/pages/homePage";
 import LeassonPage from "src/pages/leassonPage";
+import { SplashPage } from "src/pages/splashPage";
+import InicialPage from "src/pages/inicialPage";
 
 
 type StackRoutesParams = {
   home: undefined;
   details: undefined;
+  splash: undefined;
+  inicialPage: undefined;
 };
 
 // import to get suggestion of the stack routes on navigate method
@@ -45,7 +33,7 @@ const Drawer = createDrawerNavigator();
 // the stack routes is called in the tab routes
 function StackRoutes() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="home">
       <Stack.Screen
         name="home"
         component={HomePage}
@@ -61,6 +49,7 @@ function StackRoutes() {
       />
 
       <Stack.Screen name="details" component={LeassonPage} />
+      <Stack.Screen name="inicialPage" component={InicialPage} />
     </Stack.Navigator>
   );
 }
@@ -96,13 +85,15 @@ function TabRoutes() {
 function DrawerRoutes() {
   return (
     <Drawer.Navigator
-      initialRouteName="Home"
+      initialRouteName="splash"
       screenOptions={{ headerTitle: "" }}
     >
       <Drawer.Screen name="Home" component={TabRoutes} />
       <Drawer.Screen name="Lesson" component={LeassonPage} />
+      <Drawer.Screen name="splash" component={SplashPage} />
+      
     </Drawer.Navigator>
   );
 }
 
-export { DrawerRoutes as AppRoutes };
+export { DrawerRoutes as AppRoutes, TabRoutes };

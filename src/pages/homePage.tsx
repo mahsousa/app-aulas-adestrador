@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, Image } from "react-native";
+import { TabRoutes } from "src/app/app.routes";
 import Card from "src/components/Card";
 import SearchBar from "src/components/Search";
 
@@ -11,7 +12,7 @@ interface CardData {
 }
 
 const HomePage = () => {
-  const [cards, setCards] = useState<CardData[]>([]); 
+  const [cards, setCards] = useState<CardData[]>([]);
   const [filteredCards, setFilteredCards] = useState<CardData[]>([]);
 
   useEffect(() => {
@@ -20,7 +21,9 @@ const HomePage = () => {
         id: index + 1,
         title: `Card ${index + 1}`,
         description: `Descrição do card ${index + 1}`,
-        imageUrl: `https://dummyimage.com/150x150/ccc/000&text=Card+${index + 1}`,
+        imageUrl: `https://dummyimage.com/150x150/ccc/000&text=Card+${
+          index + 1
+        }`,
       }));
       setCards(mockData);
       setFilteredCards(mockData);
@@ -38,22 +41,24 @@ const HomePage = () => {
   };
 
   return (
-    <ScrollView className="flex-1 pt-10 px-3 bg-white">
-      <View className="items-center mb-4">
-        <Image
-          source={require("../assets/images/logo.png")}
-          style={{ width: 50, height: 50 }}
-        />
-      </View>
-      <SearchBar placeholder="Buscar cards..." onSearch={handleSearch} />
-      <View className="flex-wrap flex-row justify-between mt-4">
-        {filteredCards.map((card) => (
-          <View key={card.id} style={{ width: "48%", marginBottom: 16 }}>
-            <Card data={card} />
-          </View>
-        ))}
-      </View>
-    </ScrollView>
+    <>
+      <ScrollView className="flex-1 pt-10 px-3 bg-white">
+        <View className="items-center mb-4">
+          <Image
+            source={require("../assets/images/logo.png")}
+            style={{ width: 50, height: 50 }}
+          />
+        </View>
+        <SearchBar placeholder="Buscar cards..." onSearch={handleSearch} />
+        <View className="flex-wrap flex-row justify-between mt-4">
+          {filteredCards.map((card) => (
+            <View key={card.id} style={{ width: "48%", marginBottom: 16 }}>
+              <Card data={card} />
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+    </>
   );
 };
 

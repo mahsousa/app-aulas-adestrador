@@ -7,8 +7,8 @@ export default function Routes() {
   const { user } = { user: true };
 
   return (
-    <NavigationContainer>
-       {user ? <AppRoutes /> : <AuthRoutes />}
-    </NavigationContainer>
+    //<NavigationContainer>
+       <AppRoutes />
+    //</NavigationContainer>
   );
 }
