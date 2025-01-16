@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, Image } from "react-native";
-import Card from "@/components/Card";
-import SearchBar from "@/components/Search";
+import Card from "src/components/Card";
+import SearchBar from "src/components/Search";
 
 interface CardData {
   id: number;

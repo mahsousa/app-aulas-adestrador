@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import VideoCard, { VideoCardProps } from "@/components/VideoCard";
+import VideoCard, { VideoCardProps } from "src/components/VideoCard";
 
 
 // interface VideoData {

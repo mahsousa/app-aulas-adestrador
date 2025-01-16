@@ -1,9 +1,14 @@
-import React from 'react';
-import TabRouter from './tabRoutes';
-import Router from '../../Router';
+import { NavigationContainer } from "@react-navigation/native";
+import React, { useContext } from "react";
+import { AppRoutes } from  "./app.routes";
+import { AuthRoutes } from "./auth.routes";
 
-const App = () => {
-  return <TabRouter />;
-};
+export default function Routes() {
+  const { user } = { user: true };
 
-export default App;
+  return (
+    <NavigationContainer>
+       {user ? <AppRoutes /> : <AuthRoutes />}
+    </NavigationContainer>
+  );
+}

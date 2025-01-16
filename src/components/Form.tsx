@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from "../../Router";
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
+type RootStackParamList = {
+  homePage: undefined;
+};
 
 const Form = ({ showNameField = false }) => {
   const [name, setName] = useState('');
@@ -19,7 +23,7 @@ const Form = ({ showNameField = false }) => {
         ? `Dados enviados:\nNome: ${name}\nEmail: ${email}` 
         : `Dados enviados:\nEmail: ${email}`;
       Alert.alert('Sucesso', message);
-      navigation.navigate('Home');
+      navigation.navigate('homePage');
     }
   };
 

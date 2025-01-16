@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../Router';
+import { useNavigation } from "expo-router";
 
-type Props = NativeStackScreenProps<RootStackParamList, 'InicialPage'>;
+const InicialPage: React.FC = () => {
+  const navigation = useNavigation();
 
-const InicialPage: React.FC<Props> = ({ navigation }) => {
   return (
     <View className="flex-1">
       <ImageBackground
@@ -20,7 +19,7 @@ const InicialPage: React.FC<Props> = ({ navigation }) => {
             <View className="flex-row justify-center items-center p-3">
               <TouchableOpacity
                 className="bg-white py-3 px-6 rounded-lg w-1/2 mx-2 border" 
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => navigation.navigate('loginPage'as never)}
               >
                 <Text className="text-black text-lg font-bold text-center">
                   Logar
@@ -29,7 +28,7 @@ const InicialPage: React.FC<Props> = ({ navigation }) => {
 
               <TouchableOpacity
                 className="bg-black py-3 px-6 rounded-lg w-1/2 mx-2"
-                onPress={() => navigation.navigate('Cadastro')}
+                onPress={() => navigation.navigate('registerPage' as never)}
               >
                 <Text className="text-white text-lg font-bold text-center">
                   Cadastrar-se

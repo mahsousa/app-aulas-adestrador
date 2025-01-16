@@ -2,8 +2,12 @@ import React, { useEffect } from "react";
 import { View, Text, ImageBackground } from "react-native";
 import LottieView from "lottie-react-native";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from "../../Router";
 import { useNavigation } from "expo-router";
+
+type RootStackParamList = {
+  Splash: undefined;
+  InicialPage: undefined;
+};
 
 type Props = NativeStackScreenProps<RootStackParamList, "Splash">;
 
@@ -13,7 +17,7 @@ export default function SplashPage({}: Props) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate('InicialPage' as never);
+      navigation.navigate('inicialPage' as never);
     }, 5000);
 
     return () => clearTimeout(timer);
@@ -38,9 +42,7 @@ export default function SplashPage({}: Props) {
       </ImageBackground>
       <View className="flex-[0.3] justify-center items-center bg-white">
         <View>
-          <Text className="text-20 font-serif font-semibold text-center">
-            KEEP CALMING DOG
-          </Text>
+          <Text className="text-20 font-serif font-semibold text-center">KEEP CALMING DOG</Text>
           <Text className="text-20 font-serif text-center">APP</Text>
         </View>
         <LottieView
