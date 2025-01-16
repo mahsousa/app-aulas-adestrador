@@ -20,6 +20,15 @@ export const SplashPage: React.FC = () => {
       // @ts-ignore
       //navigation.navigate('Home', { screen: 'stack' });
       navigation.navigate('Lesson');
+      // navigation.navigate('Home', {
+      //   screen: 'Settings',
+      //   params: {
+      //     screen: 'Sound',
+      //     params: {
+      //       screen: 'Media',
+      //     },
+      //   },
+      // });
     }, 5000);
 
     return () => clearTimeout(timer);
