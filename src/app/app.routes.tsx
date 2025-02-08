@@ -1,3 +1,4 @@
+import { RouteProp } from "@react-navigation/native";
 import React from "react";
 import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -7,74 +8,137 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import HomePage from "src/pages/homePage";
 import LeassonPage from "src/pages/leassonPage";
 import { SplashPage } from "src/pages/splashPage";
-import InicialPage from "src/pages/inicialPage";
-
+import LoginPage from "src/pages/loginPage";
+import SignIn from "src/pages/signIn";
+import SignUp from "src/pages/signUp";
+import CustomDrawerContent from "src/customDrawer/CustomDrawerContent";
 
 type StackRoutesParams = {
   home: undefined;
-  details: undefined;
   splash: undefined;
-  inicialPage: undefined;
+  loginPage: undefined;
+  signIn: undefined;
+  signUp: undefined;
+  lesson: undefined;
 };
 
-// import to get suggestion of the stack routes on navigate method
 export type StackNavigatorRoutesProps =
   NativeStackNavigationProp<StackRoutesParams>;
 
-// create the stack routes with the params of the routes
 const Stack = createNativeStackNavigator<StackRoutesParams>();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
-// the stack routes is called in the tab routes
 function StackRoutes() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="home">
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen
         name="home"
         component={HomePage}
         options={({ navigation }) => ({
           headerLeft: () => (
-            <TouchableOpacity 
-            // onPress={() => navigation.toggleDrawer()}
-            >
+            <TouchableOpacity>
               <MaterialIcons name="menu" size={25} />
             </TouchableOpacity>
           ),
         })}
       />
 
-      <Stack.Screen name="details" component={LeassonPage} />
-      <Stack.Screen name="inicialPage" component={InicialPage} />
+      <Stack.Screen name="loginPage" component={LoginPage} />
+      <Stack.Screen
+        name="signIn"
+        component={SignIn}
+        options={{ title: "Entrar" }}
+      />
+      <Stack.Screen
+        name="signUp"
+        component={SignUp}
+        options={{ title: "Registrar-se" }}
+      />
+      <Stack.Screen
+        name="lesson"
+        component={LeassonPage}
+        options={{ title: "Aula" }}
+      />
     </Stack.Navigator>
   );
 }
 
-// the tab routes is called in the drawer routes
 function TabRoutes() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          justifyContent: "center",
+          paddingTop: 6,
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Lesson"
+        component={LeassonPage}
+        options={{
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <Feather name="play-circle" color={color} size={22} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={LeassonPage}
+        options={{
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <Feather name="search" color={color} size={22} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="stack"
         component={StackRoutes}
         options={{
-          tabBarLabel: "home", // renaming the tab label
-          tabBarIcon: ({ color, size }) => (
-            <Feather name="home" color={color} size={size} />
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <View
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 20,
+                backgroundColor: "#F75D08",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Feather name="home" color={"#fff"} size={22} />
+            </View>
           ),
         }}
       />
-
       <Tab.Screen
-        name="home 2"
-        component={HomePage}
+        name="Star"
+        component={LeassonPage}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Feather name="settings" color={color} size={size} />
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <Feather name="star" color={color} size={22} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="User"
+        component={LeassonPage}
+        options={{
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <Feather name="user" color={color} size={22} />
           ),
         }}
       />
@@ -86,12 +150,24 @@ function DrawerRoutes() {
   return (
     <Drawer.Navigator
       initialRouteName="splash"
-      screenOptions={{ headerTitle: "" }}
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      screenOptions={({ route, navigation, theme }) => ({
+        headerShown: !["splash", "signIn", "signUp", "LoginPage"].includes(
+          route.name
+        ),
+        drawerLockMode: ["splash", "signIn", "signUp", "LoginPage"].includes(
+          route.name
+        )
+          ? "locked-closed"
+          : "unlocked",
+      })}
     >
       <Drawer.Screen name="Home" component={TabRoutes} />
-      <Drawer.Screen name="Lesson" component={LeassonPage} />
+      <Drawer.Screen name="lesson" component={LeassonPage} />
       <Drawer.Screen name="splash" component={SplashPage} />
-      
+      <Drawer.Screen name="LoginPage" component={LoginPage} />
+      <Drawer.Screen name="signIn" component={SignIn} />
+      <Drawer.Screen name="signUp" component={SignUp} />
     </Drawer.Navigator>
   );
 }

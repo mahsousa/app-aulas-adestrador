@@ -6,7 +6,7 @@ import { useNavigation } from "expo-router";
 
 type RootStackParamList = {
   Splash: undefined;
-  InicialPage: undefined;
+  LoginPage: undefined;
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, "Splash">;
@@ -19,7 +19,7 @@ export const SplashPage: React.FC = () => {
     const timer = setTimeout(() => {
       // @ts-ignore
       //navigation.navigate('Home', { screen: 'stack' });
-      navigation.navigate('Lesson');
+      navigation.navigate('LoginPage');
       // navigation.navigate('Home', {
       //   screen: 'Settings',
       //   params: {
