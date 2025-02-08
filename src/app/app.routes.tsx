@@ -73,6 +73,7 @@ function StackRoutes() {
 function TabRoutes() {
   return (
     <Tab.Navigator
+    initialRouteName="stack"
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
