@@ -16,6 +16,7 @@ import LoginPage from "src/pages/loginPage";
 import SignIn from "src/pages/signIn";
 import SignUp from "src/pages/signUp";
 import CustomDrawerContent from "src/customDrawer/CustomDrawerContent";
+import VideoPage from "src/pages/videoPage";
 
 type StackRoutesParams = {
   home: undefined;
@@ -24,6 +25,7 @@ type StackRoutesParams = {
   signIn: undefined;
   signUp: undefined;
   lesson: undefined;
+  videopage: undefined;
 };
 
 export type StackNavigatorRoutesProps =
@@ -64,6 +66,11 @@ function StackRoutes() {
       <Stack.Screen
         name="lesson"
         component={LeassonPage}
+        options={{ title: "Aula" }}
+      />
+      <Stack.Screen
+        name="videopage"
+        component={VideoPage}
         options={{ title: "Aula" }}
       />
     </Stack.Navigator>
@@ -169,6 +176,7 @@ function DrawerRoutes() {
       <Drawer.Screen name="LoginPage" component={LoginPage} />
       <Drawer.Screen name="signIn" component={SignIn} />
       <Drawer.Screen name="signUp" component={SignUp} />
+      <Drawer.Screen name="videopage" component={VideoPage} />
     </Drawer.Navigator>
   );
 }

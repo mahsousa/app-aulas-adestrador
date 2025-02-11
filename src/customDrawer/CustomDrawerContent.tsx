@@ -27,7 +27,7 @@ const CustomDrawerContent: React.FC<CustomDrawerContentProps> = (props) => {
       {filteredRoutes.map((route, index) => (
         <DrawerItem
           key={route.key}
-          label={route.name === 'lesson' ? 'Aulas Personalizadas' : route.name}
+          label={route.name === 'lesson' ? 'Aulas Personalizadas' : route.name === 'Home' ? 'Início' : route.name}
           onPress={() => props.navigation.navigate(route.name)}
         />
       ))}
