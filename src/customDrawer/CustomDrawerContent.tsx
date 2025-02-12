@@ -1,5 +1,5 @@
 import React from 'react';
-import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
+import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { ScrollViewProps } from 'react-native';
 import { DrawerNavigationState, ParamListBase, RouteProp } from '@react-navigation/native';
 
@@ -13,14 +13,6 @@ const CustomDrawerContent: React.FC<CustomDrawerContentProps> = (props) => {
   const filteredRoutes = props.state.routes.filter(
     (route: RouteProp<ParamListBase, string>) => route && (route.name === 'Home' || route.name === 'lesson')
   );
-
-  const newIndex = filteredRoutes.findIndex(route => route.name === props.state.routes[props.state.index]?.name);
-
-  const newState = {
-    ...props.state,
-    routes: filteredRoutes,
-    index: newIndex >= 0 ? newIndex : 0,
-  };
 
   return (
     <DrawerContentScrollView {...props}>
