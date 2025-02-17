@@ -18,6 +18,10 @@ import SignUp from "src/pages/signUp";
 import CustomDrawerContent from "src/customDrawer/CustomDrawerContent";
 import VideoPage from "src/pages/videoPage";
 
+import UserPage from "src/pages/userPage";
+import SearchPage from "src/pages/searchPage";
+import PetPage from "src/pages/petPage";
+
 type StackRoutesParams = {
   home: undefined;
   splash: undefined;
@@ -101,7 +105,7 @@ function TabRoutes() {
       />
       <Tab.Screen
         name="Search"
-        component={LeassonPage}
+        component={SearchPage}
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ color }) => (
@@ -132,7 +136,7 @@ function TabRoutes() {
       />
       <Tab.Screen
         name="Star"
-        component={LeassonPage}
+        component={PetPage}
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ color }) => (
@@ -142,7 +146,7 @@ function TabRoutes() {
       />
       <Tab.Screen
         name="User"
-        component={LeassonPage}
+        component={UserPage}
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ color }) => (

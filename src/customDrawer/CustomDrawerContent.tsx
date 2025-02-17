@@ -11,7 +11,7 @@ interface CustomDrawerContentProps extends ScrollViewProps {
 
 const CustomDrawerContent: React.FC<CustomDrawerContentProps> = (props) => {
   const filteredRoutes = props.state.routes.filter(
-    (route: RouteProp<ParamListBase, string>) => route && (route.name === 'Home' || route.name === 'lesson')
+    (route: RouteProp<ParamListBase, string>) => route && (route.name === 'Home' || route.name === 'lesson' || route.name === 'user' || route.name === 'search' || route.name === 'pet')
   );
 
   return (
@@ -19,7 +19,7 @@ const CustomDrawerContent: React.FC<CustomDrawerContentProps> = (props) => {
       {filteredRoutes.map((route, index) => (
         <DrawerItem
           key={route.key}
-          label={route.name === 'lesson' ? 'Aulas Personalizadas' : route.name === 'Home' ? 'Início' : route.name}
+          label={route.name === 'lesson' ? 'Aulas Personalizadas' : route.name === 'Home' ? 'Início' : route.name === 'user' ? 'Perfil' : route.name === 'search' ? 'Pesquisar' : route.name === 'pet' ? 'Área pet' : ''}
           onPress={() => props.navigation.navigate(route.name)}
         />
       ))}

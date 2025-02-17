@@ -4,7 +4,7 @@ import * as VideoThumbnails from "expo-video-thumbnails";
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-export interface VideoCardProps {
+export interface ListThumbnailsProps {
   title: string;
   description: string;
   videoUrl: string;
@@ -16,7 +16,7 @@ type RootStackParamList = {
   videopage: undefined;
 };
 
-const VideoCard: React.FC<VideoCardProps> = ({
+const ListThumbnails: React.FC<ListThumbnailsProps> = ({
   title,
   description,
   videoUrl,
@@ -66,4 +66,4 @@ const VideoCard: React.FC<VideoCardProps> = ({
   );
 };
 
-export default VideoCard;
+export default ListThumbnails;
