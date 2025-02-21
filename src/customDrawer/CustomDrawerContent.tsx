@@ -1,7 +1,7 @@
-import React from 'react';
-import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import { ScrollViewProps } from 'react-native';
-import { DrawerNavigationState, ParamListBase, RouteProp } from '@react-navigation/native';
+import React from "react";
+import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
+import { ScrollViewProps } from "react-native";
+import { DrawerNavigationState, ParamListBase, RouteProp } from "@react-navigation/native";
 
 interface CustomDrawerContentProps extends ScrollViewProps {
   state: DrawerNavigationState<ParamListBase>;
@@ -11,16 +11,26 @@ interface CustomDrawerContentProps extends ScrollViewProps {
 
 const CustomDrawerContent: React.FC<CustomDrawerContentProps> = (props) => {
   const filteredRoutes = props.state.routes.filter(
-    (route: RouteProp<ParamListBase, string>) => route && (route.name === 'Home' || route.name === 'lesson' || route.name === 'user' || route.name === 'search' || route.name === 'pet')
+    (route: RouteProp<ParamListBase, string>) =>
+      route && (route.name === "home" || route.name === "lesson")
   );
+
+  const navigateToTab = (routeName: string) => {
+    if (routeName === "home") {
+      props.navigation.navigate("Tabs", { screen: "home" });
+    } else if (routeName === "lesson") {
+      props.navigation.navigate("Tabs", { screen: "lesson" });
+    }
+  };
 
   return (
     <DrawerContentScrollView {...props}>
       {filteredRoutes.map((route, index) => (
         <DrawerItem
           key={route.key}
-          label={route.name === 'lesson' ? 'Aulas Personalizadas' : route.name === 'Home' ? 'Início' : route.name === 'user' ? 'Perfil' : route.name === 'search' ? 'Pesquisar' : route.name === 'pet' ? 'Área pet' : ''}
-          onPress={() => props.navigation.navigate(route.name)}
+          label={
+            route.name === "home" ? "Inicio" : route.name === "lesson" ? "Aulas Personalizadas" : ""}
+          onPress={() => navigateToTab(route.name)}
         />
       ))}
     </DrawerContentScrollView>

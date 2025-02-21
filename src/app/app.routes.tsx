@@ -1,4 +1,4 @@
-import { RouteProp } from "@react-navigation/native";
+import { RouteProp, DrawerActions } from "@react-navigation/native";
 import React from "react";
 import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -8,7 +8,7 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View, Image } from "react-native";
 import HomePage from "src/pages/homePage";
 import LeassonPage from "src/pages/leassonPage";
 import { SplashPage } from "src/pages/splashPage";
@@ -17,13 +17,13 @@ import SignIn from "src/pages/signIn";
 import SignUp from "src/pages/signUp";
 import CustomDrawerContent from "src/customDrawer/CustomDrawerContent";
 import VideoPage from "src/pages/videoPage";
-
 import UserPage from "src/pages/userPage";
 import SearchPage from "src/pages/searchPage";
 import PetPage from "src/pages/petPage";
 
 type StackRoutesParams = {
   home: undefined;
+  Tabs: undefined;
   splash: undefined;
   loginPage: undefined;
   signIn: undefined;
@@ -39,23 +39,20 @@ const Stack = createNativeStackNavigator<StackRoutesParams>();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
-function StackRoutes() {
+function StackRoutes({ navigation }: { navigation: any }) {
   return (
-    <Stack.Navigator
-      screenOptions={{ headerShown: false }}
-    >
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name="home"
         component={HomePage}
-        options={({ navigation }) => ({
+        options={{
           headerLeft: () => (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
               <MaterialIcons name="menu" size={25} />
             </TouchableOpacity>
           ),
-        })}
+        }}
       />
-
       <Stack.Screen name="loginPage" component={LoginPage} />
       <Stack.Screen
         name="signIn"
@@ -84,7 +81,7 @@ function StackRoutes() {
 function TabRoutes() {
   return (
     <Tab.Navigator
-    initialRouteName="stack"
+      initialRouteName="home"
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
@@ -94,7 +91,7 @@ function TabRoutes() {
       }}
     >
       <Tab.Screen
-        name="Lesson"
+        name="lesson"
         component={LeassonPage}
         options={{
           tabBarLabel: "",
@@ -104,7 +101,7 @@ function TabRoutes() {
         }}
       />
       <Tab.Screen
-        name="Search"
+        name="search"
         component={SearchPage}
         options={{
           tabBarLabel: "",
@@ -114,8 +111,8 @@ function TabRoutes() {
         }}
       />
       <Tab.Screen
-        name="stack"
-        component={StackRoutes}
+        name="home"
+        component={HomePage}
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ color }) => (
@@ -135,7 +132,7 @@ function TabRoutes() {
         }}
       />
       <Tab.Screen
-        name="Star"
+        name="star"
         component={PetPage}
         options={{
           tabBarLabel: "",
@@ -145,7 +142,7 @@ function TabRoutes() {
         }}
       />
       <Tab.Screen
-        name="User"
+        name="user"
         component={UserPage}
         options={{
           tabBarLabel: "",
@@ -154,6 +151,7 @@ function TabRoutes() {
           ),
         }}
       />
+      
     </Tab.Navigator>
   );
 }
@@ -163,7 +161,7 @@ function DrawerRoutes() {
     <Drawer.Navigator
       initialRouteName="splash"
       drawerContent={(props) => <CustomDrawerContent {...props} />}
-      screenOptions={({ route, navigation, theme }) => ({
+      screenOptions={({ route }) => ({
         headerShown: !["splash", "signIn", "signUp", "LoginPage"].includes(
           route.name
         ),
@@ -174,8 +172,9 @@ function DrawerRoutes() {
           : "unlocked",
       })}
     >
-      <Drawer.Screen name="Home" component={TabRoutes} />
-      <Drawer.Screen name="lesson" component={LeassonPage} />
+      <Drawer.Screen name="Tabs" component={TabRoutes} options={{ title: "" }} />
+      <Drawer.Screen name="home" component={HomePage} options={{ title: "" }}/>
+      <Drawer.Screen name="lesson" component={LeassonPage} options={{ title: "" }} />
       <Drawer.Screen name="splash" component={SplashPage} />
       <Drawer.Screen name="LoginPage" component={LoginPage} />
       <Drawer.Screen name="signIn" component={SignIn} />

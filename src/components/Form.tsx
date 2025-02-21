@@ -5,6 +5,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 type RootStackParamList = {
   Home: undefined;
+  Tabs: undefined;
 };
 
 const Form = ({ showNameField = false }) => {
@@ -23,7 +24,7 @@ const Form = ({ showNameField = false }) => {
         ? `Dados enviados:\nNome: ${name}\nEmail: ${email}` 
         : `Dados enviados:\nEmail: ${email}`;
       Alert.alert('Sucesso', message);
-      navigation.navigate('Home');
+      navigation.navigate('Tabs');
     }
   };
 
